@@ -25,17 +25,14 @@ function mintNFT(address recipient, string memory zodiacSign)
         abi.encodePacked(baseSvg, zodiacSign, "</text></svg>")
     );
 
-    // Get all the JSON metadata in place and base64 encode it.
     string memory json = Base64.encode(
         bytes(
             string(
                 abi.encodePacked(
                     '{"name": "',zodiacSign,
-                    // We set the title of our NFT as the generated word.
                     '", "description": "On-chain Zodiac Sign NFTs", "attributes": [{"trait_type": "Zodiac Sign", "value": "',
                     zodiacSign,
                     '"}], "image": "data:image/svg+xml;base64,',
-                    // We add data:image/svg+xml;base64 and then append our base64 encode our svg.
                     Base64.encode(bytes(finalSvg)),
                     '"}'
                 )
@@ -43,7 +40,6 @@ function mintNFT(address recipient, string memory zodiacSign)
         )
     );
 
-    // Just like before, we prepend data:application/json;base64, to our data.
     string memory finalTokenUri = string(
         abi.encodePacked("data:application/json;base64,", json)
     );
